@@ -34,6 +34,7 @@
     },
     "homepage": "https://github.com/jertje260/typescript-jest-conversion-tool#readme",
     "devDependencies": {
+        "@types/find": "^0.2.1",
         "@types/jest": "^24.0.18",
         "@types/node": "^12.7.12",
         "jest": "^24.9.0",
@@ -42,6 +43,7 @@
         "typescript": "^3.6.4"
     },
     "dependencies": {
+        "find": "^0.3.0",
         "fs": "0.0.1-security"
     }
 }
