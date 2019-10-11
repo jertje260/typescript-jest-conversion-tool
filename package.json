@@ -1,0 +1,43 @@
+{
+    "name": "typescript-jest-conversion-tool",
+    "version": "1.0.0",
+    "description": "This CLI tool will convert a normal node/js project to a structure to work with Typescript and run the tests with Jest.",
+    "main": "index.js",
+    "scripts": {
+        "build": "npm run clean && npm run compile",
+        "clean": "rm -rf ./dist",
+        "compile": "tsc -p tsconfig.json",
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jertje260/typescript-jest-conversion-tool.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/jertje260/typescript-jest-conversion-tool/issues"
+    },
+    "jest": {
+        "collectCoverage": true,
+        "preset": "ts-jest",
+        "coverageDirectory": "coverage/",
+        "coverageReporters": [
+            "text",
+            "cobertura"
+        ],
+        "reporters": [
+            "default",
+            "jest-junit"
+        ]
+    },
+    "homepage": "https://github.com/jertje260/typescript-jest-conversion-tool#readme",
+    "devDependencies": {
+        "@types/jest": "^24.0.18",
+        "jest": "^24.9.0",
+        "jest-junit": "^8.0.0",
+        "ts-jest": "^24.1.0",
+        "typescript": "^3.6.4"
+    }
+}
