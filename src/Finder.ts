@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import { PackageJsonNotFoundError } from "./errors/PackageJsonNotFoundError";
 
-export class FileFinder {
+export class Finder {
 	FindPackageJson(pathToRoot: string = "./"): string {
 		const path = pathToRoot + "package.json";
 		try {

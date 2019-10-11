@@ -1,8 +1,8 @@
-import { FileFinder } from "./../src/FileFinder";
+import { Finder } from "../src/Finder";
 import { PackageJsonNotFoundError } from "../src/errors/PackageJsonNotFoundError";
 
 describe("When searching for package json", () => {
-	const fileFinder = new FileFinder();
+	const fileFinder = new Finder();
 
 	it("Should find it when it exists", () => {
 		const output = fileFinder.FindPackageJson("./test/testProjectFolders/withPackagejson/");
