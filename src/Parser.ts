@@ -1,7 +1,7 @@
-import { IPackageJson } from "./models/IPackageJson";
+import { PackageJson } from "./models/IPackageJson";
 
 export class Parser {
-	public ParsePackageJson(input: string): IPackageJson {
-		return JSON.parse(input);
+	public ParsePackageJson(input: string): PackageJson {
+		return new PackageJson(JSON.parse(input));
 	}
 }
