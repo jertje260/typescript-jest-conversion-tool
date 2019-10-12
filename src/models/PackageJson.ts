@@ -8,9 +8,19 @@ export class PackageJson {
 		this.devDependencies = content.devDependencies;
 	}
 	public GetTypescriptVersion(): false | string {
-		if (this.devDependencies["typescript"] !== undefined) {
-			return this.devDependencies["typescript"];
+		return this.GetPackageVersion("typescript");
+	}
+
+	private GetPackageVersion(packageName: string): false | string {
+		if (this.devDependencies[packageName] !== undefined) {
+			return this.devDependencies[packageName];
 		}
 		return false;
+	}
+
+	public InstallDevDependency(packageName: string, version: string): void{
+		if(this.GetPackageVersion(packageName) === false){
+			this.devDependencies[packageName] = version;
+		}
 	}
 }
