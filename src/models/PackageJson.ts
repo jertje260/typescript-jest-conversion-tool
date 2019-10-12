@@ -1,5 +1,5 @@
-import { IPackageJson } from "./IPackageJson";
-import { KeyValueStringObject } from "./KeyValueStringObject";
+import { IPackageJson } from "../interfaces/IPackageJson";
+import { KeyValueStringObject } from "../interfaces/KeyValueStringObject";
 export class PackageJson {
 	dependencies: KeyValueStringObject;
 	devDependencies: KeyValueStringObject;

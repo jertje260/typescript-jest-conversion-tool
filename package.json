@@ -39,11 +39,11 @@
         "@types/node": "^12.7.12",
         "jest": "^24.9.0",
         "jest-junit": "^8.0.0",
+        "memfs": "^2.15.5",
         "ts-jest": "^24.1.0",
         "typescript": "^3.6.4"
     },
     "dependencies": {
-        "find": "^0.3.0",
         "fs": "0.0.1-security"
     }
 }

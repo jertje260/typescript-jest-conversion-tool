@@ -1,11 +1,25 @@
 import { Finder } from "../src/Finder";
 import { PackageJsonNotFoundError } from "../src/errors/PackageJsonNotFoundError";
+import { InMemoryFileSystemHandler } from "./InMemoryFileSystemHandler";
+const memfs = new InMemoryFileSystemHandler();
+const fileFinder = new Finder(memfs);
 
 describe("When searching for package json", () => {
-	const fileFinder = new Finder();
+	
 
 	it("Should find it when it exists", () => {
-		const output = fileFinder.FindPackageJson("./test/testProjectFolders/withPackagejson/");
+		memfs.SetVolume({
+			"./package.json": `{
+				"dependencies": {
+			
+				},
+				"devDependencies": {
+					"mocha": "6.2.0"
+				}
+			}`,
+		}, "/app");
+
+		const output = fileFinder.FindPackageJson("/app/");
 
 		expect(output).not.toBeNull();
 	});

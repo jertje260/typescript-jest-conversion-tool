@@ -1,4 +1,4 @@
-import { PackageJson } from "../src/models/IPackageJson";
+import { PackageJson } from "../src/models/PackageJson";
 
 describe("When checking package.json for typescript", () => {
 	it("Given no typescript, should return false", () => {
