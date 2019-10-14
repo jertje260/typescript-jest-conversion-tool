@@ -10,7 +10,7 @@ export class PromptHandler {
             initial: true
           },
           {
-              type: (prev: boolean) => (!prev)? 'message' : null,
+              type: (prev: boolean) => (!prev)? 'text' : null,
               name: 'root',
               message: 'Please type the relative path to the root of your repository'
           }

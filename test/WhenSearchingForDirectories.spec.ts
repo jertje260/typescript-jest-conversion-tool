@@ -1,8 +1,8 @@
-import { Finder } from "../src/Finder";
+import { FileHandler } from "../src/FileHandler";
 import { InMemoryFileSystemHandler } from "./InMemoryFileSystemHandler";
 
 const memfs = new InMemoryFileSystemHandler();
-const finder = new Finder(memfs);
+const finder = new FileHandler(memfs);
 
 
 describe("When searching for directories", () => {

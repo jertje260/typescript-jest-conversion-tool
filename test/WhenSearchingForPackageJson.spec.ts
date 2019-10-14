@@ -1,8 +1,9 @@
-import { Finder } from "../src/Finder";
+import { FileHandler } from "../src/FileHandler";
 import { PackageJsonNotFoundError } from "../src/errors/PackageJsonNotFoundError";
 import { InMemoryFileSystemHandler } from "./InMemoryFileSystemHandler";
+
 const memfs = new InMemoryFileSystemHandler();
-const fileFinder = new Finder(memfs);
+const fileFinder = new FileHandler(memfs);
 
 describe("When searching for package json", () => {
 	
@@ -25,7 +26,9 @@ describe("When searching for package json", () => {
 	});
 
 	it("Should throw error when it doesn't exist", () => {
-		expect(() => { fileFinder.FindPackageJson("./test/testProjectFolders/withoutPackagejson/"); })
+		memfs.SetVolume({}, "/app")
+
+		expect(() => { fileFinder.FindPackageJson("/noapp/"); })
 			.toThrowError(PackageJsonNotFoundError);
 	});
 });

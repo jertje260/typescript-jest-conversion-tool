@@ -6,4 +6,4 @@ import { PromptHandler } from "./PromptHandler";
     const handler = new PromptHandler();
     const root = await handler.GetRootOfRepo();
     console.log(root);
-});
+})();
