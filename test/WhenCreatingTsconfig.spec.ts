@@ -6,9 +6,9 @@ const fileHandler = new FileHandler(memfs);
 
 describe("When creating typescript config", () => {
 	it("Given no configuration, should create", () => {
-		memfs.SetVolume({}, "/app");
+		memfs.SetVolume({}, "/");
 
-		fileHandler.CreateTsConfig("/app/");
+		fileHandler.CreateTsConfig("/");
 
 		expect(memfs.GetVolume())
 	});

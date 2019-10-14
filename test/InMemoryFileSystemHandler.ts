@@ -29,6 +29,4 @@ export class InMemoryFileSystemHandler implements IFileSystemHandler {
 	ReadFile(path: string, encoding: string): string {
 		return vol.readFileSync(path, encoding).toString();
 	}
-
-
 }
