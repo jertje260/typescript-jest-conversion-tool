@@ -1,9 +1,14 @@
 #!/usr/bin/env node
+import { CLI } from "./CLI";
 import { PromptHandler } from "./PromptHandler";
+import { FileHandler } from "./FileHandler";
+import { Parser } from "./Parser";
+import { FileSystemHandler } from "./FileSystemHandler";
+import { CommandHandler } from "./CommandHandler";
 
-
-(async () => {
-    const handler = new PromptHandler();
-    const root = await handler.GetRootOfRepo();
-    console.log(root);
-})();
+const cli = new CLI(new PromptHandler(), new FileHandler(new FileSystemHandler()), new Parser(), new CommandHandler());
+(
+    async () => { 
+        cli.Start(); 
+    })
+();
