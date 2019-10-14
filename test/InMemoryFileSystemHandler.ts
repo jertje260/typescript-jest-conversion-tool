@@ -1,22 +1,24 @@
-import { fs, vol } from "memfs";
+import { Volume as vol } from "memfs";
 import { IFileSystemHandler } from "../src/interfaces/IFileSystemHandler";
+import { Volume } from "memfs/lib/volume";
 
 export class InMemoryFileSystemHandler implements IFileSystemHandler {
+	private volume: Volume | undefined = undefined;
 
 	CreateFile(path: string, content: string): void {
-		vol.writeFileSync(path, content);
+		this.volume!.writeFileSync(path, content);
 	}
 
 	SetVolume(jsonVolume: Record<string, string>, basePath: string) {
-		vol.fromJSON(jsonVolume, basePath);
+		this.volume = vol.fromJSON(jsonVolume, basePath);
 	}
 
 	GetVolume() {
-		return vol.toJSON();
+		return this.volume!.toJSON();
 	}
 
 	FindDirs(pathToRoot: string): string[] {
-		const output = vol.readdirSync(pathToRoot);
+		const output = this.volume!.readdirSync(pathToRoot);
 
 		const dirs: string[] = [];
 		output.forEach((file: any) => {
@@ -27,6 +29,10 @@ export class InMemoryFileSystemHandler implements IFileSystemHandler {
 	}
 	
 	ReadFile(path: string, encoding: string): string {
-		return vol.readFileSync(path, encoding).toString();
+		return this.volume!.readFileSync(path, encoding).toString();
+	}
+
+	UpdateFile(path: string, contentToAppend: string) {
+		return this.volume!.appendFileSync(path, contentToAppend);
 	}
 }

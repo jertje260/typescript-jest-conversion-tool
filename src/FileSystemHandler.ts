@@ -2,6 +2,9 @@ import * as fs from "fs";
 import { IFileSystemHandler } from "./interfaces/IFileSystemHandler";
 
 export class FileSystemHandler implements IFileSystemHandler {
+	UpdateFile(path: string, contentToAppend: string) {
+		fs.appendFileSync(path, contentToAppend);
+	}
 	
 	CreateFile(path: string, content: string): void {
 		fs.writeFileSync(path, content);
