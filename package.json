@@ -4,7 +4,7 @@
     "description": "This CLI tool will convert a normal node/js project to a structure to work with Typescript and run the tests with Jest.",
     "main": "./dist/index.js",
     "bin": {
-        "tjc" : "./dist/index.js"
+        "tjc": "./dist/index.js"
     },
     "scripts": {
         "build": "npm run clean && npm run compile",
