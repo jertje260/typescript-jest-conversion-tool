@@ -1,6 +1,6 @@
 import { PackageJsonNotFoundError } from "./errors/PackageJsonNotFoundError";
 import { IFileSystemHandler } from "./interfaces/IFileSystemHandler";
-import { TSCONFIG_BUILD_JSON, TSCONFIG_JSON } from "./models/StringConstants"
+import { TSCONFIG_BUILD_JSON, TSCONFIG_JSON, JEST_CONFIG } from "./models/StringConstants"
 import { EOL } from "os";
 
 export class FileHandler {
@@ -50,5 +50,19 @@ export class FileHandler {
 
 	CreateSrcDir(pathToRoot: string = "./"): void {
 		this.fs.CreateDirectory(pathToRoot + "src");
+	}
+
+	CreateTestDir(pathToRoot: string = "./") {
+		this.fs.CreateDirectory(pathToRoot + "test");
+	}
+
+	AddJestConfigToPackageJson(pathToRoot: string = "./") {
+		const packageJsonString = this.FindPackageJson(pathToRoot);
+		let packageJson = JSON.parse(packageJsonString);
+		packageJson["jest"] = JEST_CONFIG;
+
+		const newPackageString = JSON.stringify(packageJson);
+
+		this.fs.CreateFile(pathToRoot + "package.json", newPackageString);
 	}
 }

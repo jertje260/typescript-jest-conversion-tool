@@ -45,6 +45,12 @@ export class CLI {
 
 		if (packageJson.devDependencies["mocha"] !== undefined && await this.prompt.RequestUpdateToJest()) {
 			await this.commandHandler.InstallJest();
+
+			await this.fileHandler.AddJestConfigToPackageJson();
+
+			console.log("creating 'test' directory if not existing");
+
+			this.fileHandler.CreateTestDir();
 		}
 
 		// update main method

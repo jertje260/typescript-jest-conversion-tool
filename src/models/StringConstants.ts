@@ -29,3 +29,16 @@ export const TSCONFIG_BUILD_JSON =
 	]
 }`;
 
+export const JEST_CONFIG = {
+	"collectCoverage": true,
+	"preset": "ts-jest",
+	"coverageDirectory": "coverage/",
+	"coverageReporters": [
+		"text",
+		"cobertura"
+	],
+	"reporters": [
+		"default",
+		"jest-junit"
+	]
+};
