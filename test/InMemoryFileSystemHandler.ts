@@ -3,7 +3,7 @@ import { IFileSystemHandler } from "../src/interfaces/IFileSystemHandler";
 import { Volume } from "memfs/lib/volume";
 
 export class InMemoryFileSystemHandler implements IFileSystemHandler {
-	private volume: Volume | undefined = undefined;
+	public volume: Volume | undefined = undefined;
 
 	CreateFile(path: string, content: string): void {
 		this.volume!.writeFileSync(path, content);
@@ -34,5 +34,11 @@ export class InMemoryFileSystemHandler implements IFileSystemHandler {
 
 	UpdateFile(path: string, contentToAppend: string) {
 		return this.volume!.appendFileSync(path, contentToAppend);
+	}
+
+	CreateDirectory(path: string): void {
+		if(!this.volume!.existsSync(path)){
+			this.volume!.mkdirSync(path);
+		}
 	}
 }

@@ -11,7 +11,8 @@
         "clean": "rm -rf ./dist",
         "compile": "tsc -p tsconfig.build.json",
         "test": "jest",
-        "local": "npm install -g && tjc"
+        "local": "npm install -g && tjc",
+        "test-watch": "jest --collect-coverage=false --watchAll"
     },
     "repository": {
         "type": "git",

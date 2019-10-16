@@ -14,6 +14,8 @@ export class CLI {
 	public async Start() {
 		const root = await this.prompt.GetRootOfRepo();
 
+		await this.commandHandler.GoToRoot(root);
+
 		const packageJsonString = this.fileHandler.FindPackageJson();
 
 		var packageJson = this.parser.ParsePackageJson(packageJsonString); 
@@ -27,6 +29,31 @@ export class CLI {
 
 		await this.commandHandler.InstallTypescriptVersion(typescriptVersion);
 
+		console.log(`Updating/Creating tsconfig.json & tsconfig.build.json files`);
 
+		this.fileHandler.CreateTsConfig();
+
+		console.log("creating 'src' directory if not existing.");
+
+		this.fileHandler.CreateSrcDir();
+
+		let finishedMoving = false;
+
+		while(!finishedMoving){
+			finishedMoving = await this.prompt.FinishedMovingAllSourceFiles();
+		}
+		
+		// update main method
+		// update start script
+		// move tests over to jest (first implementation from mocha)
+		// update package.json to have jest configuration
+		// create/update clean/compile/build/test steps
+
+
+		// update azure-pipelines*.yaml's to do npm install, test, build (and prune for release)
+		// update docker file to just be base + mount of volume.
+		// create docker ignore file
+
+		
 	}
 }

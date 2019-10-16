@@ -1,6 +1,16 @@
 import { prompt } from "prompts"
 
 export class PromptHandler {
+    public async FinishedMovingAllSourceFiles(): Promise<boolean> {
+        const response = await prompt([{
+            type: 'confirm',
+            name: 'moved',
+            message: `Are you finished moving all sources to the './src' directory, Use VS Code to do this (will update imports)`,
+            initial: true
+        }]);
+        return response.moved;
+    }
+
     public async GetTypescriptVersion(defaultTypescriptVersion: string) {
         const response = await prompt([{
             type: 'confirm',

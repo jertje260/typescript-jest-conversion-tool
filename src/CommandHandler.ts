@@ -2,7 +2,10 @@ import { exec } from "child_process";
 import { ICommandHandler } from "./interfaces/ICommandHandler";
 
 export class CommandHandler implements ICommandHandler {
-	public async InstallTypescriptVersion(typescriptVersion: any): Promise<void> {
+	GoToRoot(path: string): Promise<void> {
+		await this.GetOutputOfCommand(`cd ${path}`);
+	}
+	public async InstallTypescriptVersion(typescriptVersion: string): Promise<void> {
 		await this.GetOutputOfCommand(`npm install -D typescript@${typescriptVersion}`);
 	}
 

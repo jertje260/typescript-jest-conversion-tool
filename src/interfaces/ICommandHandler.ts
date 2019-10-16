@@ -1,4 +1,5 @@
 export interface ICommandHandler {
-	InstallTypescriptVersion(typescriptVersion: any);
+	GoToRoot(path: string): Promise<void>;
+	InstallTypescriptVersion(typescriptVersion: string): Promise<void>;
 	GetLatestTypescriptVersion(): Promise<string>
 }

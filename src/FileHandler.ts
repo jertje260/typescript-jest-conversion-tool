@@ -47,4 +47,8 @@ export class FileHandler {
 
 		this.fs.UpdateFile(pathToRoot + this.GitIgnore, toAdd);
 	}
+
+	CreateSrcDir(pathToRoot: string = "./"): void {
+		this.fs.CreateDirectory(pathToRoot + "src");
+	}
 }

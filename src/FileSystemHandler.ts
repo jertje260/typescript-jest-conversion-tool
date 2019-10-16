@@ -2,6 +2,11 @@ import * as fs from "fs";
 import { IFileSystemHandler } from "./interfaces/IFileSystemHandler";
 
 export class FileSystemHandler implements IFileSystemHandler {
+	CreateDirectory(path: string): void {
+		if(!fs.existsSync(path)){
+			fs.mkdirSync(path);
+		}
+	}
 	UpdateFile(path: string, contentToAppend: string) {
 		fs.appendFileSync(path, contentToAppend);
 	}
