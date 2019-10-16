@@ -18,7 +18,7 @@ export class CLI {
 
 		const packageJsonString = this.fileHandler.FindPackageJson();
 
-		var packageJson = this.parser.ParsePackageJson(packageJsonString); 
+		var packageJson = this.parser.ParsePackageJson(packageJsonString);
 		// what to do if already has typescript installed
 
 		const currentTypescriptVersion = await this.commandHandler.GetLatestTypescriptVersion();
@@ -39,10 +39,14 @@ export class CLI {
 
 		let finishedMoving = false;
 
-		while(!finishedMoving){
+		while (!finishedMoving) {
 			finishedMoving = await this.prompt.FinishedMovingAllSourceFiles();
 		}
-		
+
+		if (packageJson.devDependencies["mocha"] !== undefined && await this.prompt.RequestUpdateToJest()) {
+			await this.commandHandler.InstallJest();
+		}
+
 		// update main method
 		// update start script
 		// move tests over to jest (first implementation from mocha)
@@ -54,6 +58,6 @@ export class CLI {
 		// update docker file to just be base + mount of volume.
 		// create docker ignore file
 
-		
+
 	}
 }

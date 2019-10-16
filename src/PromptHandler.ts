@@ -1,6 +1,16 @@
 import { prompt } from "prompts"
 
 export class PromptHandler {
+	public async RequestUpdateToJest(): Promise<boolean> {
+        const response = await prompt([{
+            type: 'confirm',
+            name: 'useJest',
+            message: `Do you want to move from 'mocha' to 'jest' as testframework? This supports typescript easily.`,
+            initial: true
+        }]);
+        return response.useJest;
+    }
+    
     public async FinishedMovingAllSourceFiles(): Promise<boolean> {
         const response = await prompt([{
             type: 'confirm',
