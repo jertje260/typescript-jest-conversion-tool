@@ -42,6 +42,7 @@ describe("When creating typescript config", () => {
 const build_json = 
 `{
 	"compilerOptions": {
+		"incremental": true,
 		"target": "esnext", /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */
 		"module": "commonjs", /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
 		"allowJs": false, /* Allow javascript files to be compiled. */
