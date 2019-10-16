@@ -1,6 +1,6 @@
-import { FileHandler } from "../src/FileHandler";
-import { PackageJsonNotFoundError } from "../src/errors/PackageJsonNotFoundError";
-import { InMemoryFileSystemHandler } from "./InMemoryFileSystemHandler";
+import { FileHandler } from "../../src/FileHandler";
+import { PackageJsonNotFoundError } from "../../src/errors/PackageJsonNotFoundError";
+import { InMemoryFileSystemHandler } from "../InMemoryFileSystemHandler";
 
 const memfs = new InMemoryFileSystemHandler();
 const fileFinder = new FileHandler(memfs);

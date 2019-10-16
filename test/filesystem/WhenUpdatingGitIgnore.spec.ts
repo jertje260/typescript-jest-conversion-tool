@@ -1,5 +1,5 @@
-import { InMemoryFileSystemHandler } from "./InMemoryFileSystemHandler";
-import { FileHandler } from "../src/FileHandler";
+import { InMemoryFileSystemHandler } from "../InMemoryFileSystemHandler";
+import { FileHandler } from "../../src/FileHandler";
 import { EOL } from "os";
 
 describe("When updating .gitignore file", () => {

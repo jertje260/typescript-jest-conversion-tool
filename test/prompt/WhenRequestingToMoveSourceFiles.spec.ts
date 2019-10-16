@@ -1,5 +1,5 @@
 import { inject } from "prompts";
-import { PromptHandler } from "../src/PromptHandler";
+import { PromptHandler } from "../../src/PromptHandler";
 
 const promptHandler = new PromptHandler();
 
