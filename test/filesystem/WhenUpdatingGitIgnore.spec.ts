@@ -50,4 +50,17 @@ describe("When updating .gitignore file", () => {
 
 		expect(volume["/.gitignore"]).toEqual("node_modules" + EOL + "dist");
 	});
+
+	it("Should add 'junit & coverage' to .gitignore on newline if file contains data if existing", () => {
+		const memfs = new InMemoryFileSystemHandler();
+		const fileHandler = new FileHandler(memfs);
+
+		memfs.SetVolume({ ".gitignore": "node_modules" }, "/");
+
+		fileHandler.UpdateGitIgnoreForJest("/");
+
+		const volume = memfs.GetVolume();
+
+		expect(volume["/.gitignore"]).toEqual("node_modules" + EOL + "junit.xml" + EOL + "coverage");
+	});
 })

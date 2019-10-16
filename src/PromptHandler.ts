@@ -1,6 +1,15 @@
 import { prompt } from "prompts"
 
 export class PromptHandler {
+	public async FinishedMovingAllTestFiles(): Promise<boolean> {
+        const response = await prompt([{
+            type: 'confirm',
+            name: 'moved',
+            message: `Are you finished moving all tests to the './test' directory, Use VS Code to do this (will update imports)`,
+            initial: true
+        }]);
+        return response.moved;
+	}
 	public async RequestUpdateToJest(): Promise<boolean> {
         const response = await prompt([{
             type: 'confirm',

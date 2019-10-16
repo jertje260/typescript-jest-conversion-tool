@@ -43,14 +43,25 @@ export class CLI {
 			finishedMoving = await this.prompt.FinishedMovingAllSourceFiles();
 		}
 
+		await this.fileHandler.UpdateBuildScripts();
+
 		if (packageJson.devDependencies["mocha"] !== undefined && await this.prompt.RequestUpdateToJest()) {
 			await this.commandHandler.InstallJest();
 
 			await this.fileHandler.AddJestConfigToPackageJson();
 
+			await this.fileHandler.UpdateGitIgnoreForJest();
+
 			console.log("creating 'test' directory if not existing");
 
 			this.fileHandler.CreateTestDir();
+
+			let finishedMovingTests = false;
+			while(!finishedMovingTests){
+				finishedMovingTests = await this.prompt.FinishedMovingAllTestFiles();
+			}
+
+			await this.fileHandler.UpdateTestScripts();
 		}
 
 		// update main method

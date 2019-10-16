@@ -12,7 +12,7 @@
         "compile": "tsc -p tsconfig.build.json",
         "test": "jest",
         "local": "npm install -g && tjc",
-        "test-watch": "jest --collect-coverage=false --watchAll"
+        "test-watch": "jest --collect-coverage=false --watchAll --reporters=\"default\""
     },
     "repository": {
         "type": "git",
@@ -23,7 +23,7 @@
     "license": "ISC",
     "bugs": {
         "url": "https://github.com/jertje260/typescript-jest-conversion-tool/issues"
-    },
+    },  
     "jest": {
         "collectCoverage": true,
         "preset": "ts-jest",

@@ -30,18 +30,18 @@ export class FileHandler {
 		} catch (err) {
 			throw new PackageJsonNotFoundError(path);
 		}
-	}	
-	
+	}
+
 	UpdateGitIgnoreForTypescript(pathToRoot: string = "./"): void {
 		let content = "";
 		let toAdd = "dist"
 
-		try{
+		try {
 			content = this.fs.ReadFile(pathToRoot + this.GitIgnore, 'utf8');
 		} catch {
 
 		}
-		if(content !== ""){
+		if (content !== "") {
 			toAdd = EOL + toAdd;
 		}
 
@@ -64,5 +64,50 @@ export class FileHandler {
 		const newPackageString = JSON.stringify(packageJson);
 
 		this.fs.CreateFile(pathToRoot + "package.json", newPackageString);
+	}
+
+	UpdateBuildScripts(pathToRoot: string = "./") {
+		const packageJsonString = this.FindPackageJson(pathToRoot);
+		let packageJson = JSON.parse(packageJsonString);
+		if (packageJson["scripts"] === undefined) {
+			packageJson["scripts"] = {};
+		}
+		packageJson["scripts"]["build"] = "npm run clean && npm run compile";
+		packageJson["scripts"]["clean"] = "rm -rf ./dist";
+		packageJson["scripts"]["compile"] = "tsc -p tsconfig.build.json";
+
+		const newPackageString = JSON.stringify(packageJson);
+
+		this.fs.CreateFile(pathToRoot + "package.json", newPackageString);
+	}
+
+	UpdateTestScripts(pathToRoot: string = "./") {
+		const packageJsonString = this.FindPackageJson(pathToRoot);
+		let packageJson = JSON.parse(packageJsonString);
+		if (packageJson["scripts"] === undefined) {
+			packageJson["scripts"] = {};
+		}
+		packageJson["scripts"]["test"] = "jest";
+		packageJson["scripts"]["test-watch"] = "jest --collect-coverage=false --watchAll --reporters=\"default\"";
+
+		const newPackageString = JSON.stringify(packageJson);
+
+		this.fs.CreateFile(pathToRoot + "package.json", newPackageString);
+	}
+
+	UpdateGitIgnoreForJest(pathToRoot: string = "./") {
+		let content = "";
+		let toAdd = "junit.xml" + EOL + "coverage";
+
+		try {
+			content = this.fs.ReadFile(pathToRoot + this.GitIgnore, 'utf8');
+		} catch {
+
+		}
+		if (content !== "") {
+			toAdd = EOL + toAdd;
+		}
+
+		this.fs.UpdateFile(pathToRoot + this.GitIgnore, toAdd);
 	}
 }
