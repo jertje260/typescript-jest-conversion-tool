@@ -1,5 +1,5 @@
 import { Volume as vol } from "memfs";
-import { IFileSystemHandler } from "../src/interfaces/IFileSystemHandler";
+import { IFileSystemHandler } from "../../src/interfaces/IFileSystemHandler";
 import { Volume } from "memfs/lib/volume";
 
 export class InMemoryFileSystemHandler implements IFileSystemHandler {

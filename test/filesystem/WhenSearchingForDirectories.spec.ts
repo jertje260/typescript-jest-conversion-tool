@@ -1,5 +1,5 @@
 import { FileHandler } from "../../src/FileHandler";
-import { InMemoryFileSystemHandler } from "../InMemoryFileSystemHandler";
+import { InMemoryFileSystemHandler } from "./InMemoryFileSystemHandler";
 
 const memfs = new InMemoryFileSystemHandler();
 const finder = new FileHandler(memfs);

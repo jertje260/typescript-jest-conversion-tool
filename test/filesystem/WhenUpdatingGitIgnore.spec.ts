@@ -1,4 +1,4 @@
-import { InMemoryFileSystemHandler } from "../InMemoryFileSystemHandler";
+import { InMemoryFileSystemHandler } from "./InMemoryFileSystemHandler";
 import { FileHandler } from "../../src/FileHandler";
 import { EOL } from "os";
 

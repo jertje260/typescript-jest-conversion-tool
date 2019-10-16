@@ -1,4 +1,4 @@
-import { InMemoryFileSystemHandler } from "../InMemoryFileSystemHandler";
+import { InMemoryFileSystemHandler } from "./InMemoryFileSystemHandler";
 import { FileHandler } from "../../src/FileHandler";
 
 const memfs = new InMemoryFileSystemHandler();
