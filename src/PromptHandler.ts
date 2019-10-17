@@ -68,4 +68,23 @@ export class PromptHandler {
         }
         return response.root;
     }
+
+    public async CheckUpdatedMainMethod(mainString: string, proposedMain: string): Promise<string> {
+		const response = await prompt([{
+            type: 'confirm',
+            name: 'default',
+            message: `The current main is ${mainString}, we propose to change it to ${proposedMain}. Is this good?`,
+            initial: true
+        },
+        {
+            type: (prev: boolean) => (!prev) ? 'text' : null,
+            name: 'main',
+            message: 'Please type the main entry point of the application (the typescript output is the `dist` folder.'
+        }]);
+
+        if (response.default) {
+            return proposedMain;
+        }
+        return response.main;
+	}
 }
