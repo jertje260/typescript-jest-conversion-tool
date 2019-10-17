@@ -110,4 +110,20 @@ export class FileHandler {
 
 		this.fs.UpdateFile(pathToRoot + this.GitIgnore, toAdd);
 	}
+
+	GetMainString(pathToRoot: string = "./"): string {
+		try {
+			const packageJsonString = this.FindPackageJson(pathToRoot);
+
+			const packageJson = JSON.parse(packageJsonString);
+
+			if (packageJson["main"] !== undefined) {
+				return packageJson["main"];
+			}
+
+			return "";
+		} catch {
+			return "";
+		}
+	}
 }
