@@ -11,19 +11,19 @@ export class FileHandler {
 		this.fs = fs;
 	}
 
-	FindDirectories(pathToRoot: string = "./"): string[] {
+	FindDirectories(pathToRoot: string): string[] {
 		const dirs = this.fs.FindDirs(pathToRoot);
 		dirs.forEach((dir, i, arr) => arr[i] = dir.substring(dir.lastIndexOf("\\") + 1));
 
 		return dirs;
 	}
 
-	CreateTsConfig(pathToRoot: string = "./"): void {
+	CreateTsConfig(pathToRoot: string): void {
 		this.fs.CreateFile(pathToRoot + "tsconfig.json", TSCONFIG_JSON);
 		this.fs.CreateFile(pathToRoot + "tsconfig.build.json", TSCONFIG_BUILD_JSON);
 	}
 
-	FindPackageJson(pathToRoot: string = "./"): string {
+	FindPackageJson(pathToRoot: string): string {
 		const path = pathToRoot + "package.json";
 		try {
 			return this.fs.ReadFile(path, 'utf8');
@@ -32,7 +32,7 @@ export class FileHandler {
 		}
 	}
 
-	UpdateGitIgnoreForTypescript(pathToRoot: string = "./"): void {
+	UpdateGitIgnoreForTypescript(pathToRoot: string): void {
 		let content = "";
 		let toAdd = "dist"
 
@@ -48,15 +48,15 @@ export class FileHandler {
 		this.fs.UpdateFile(pathToRoot + this.GitIgnore, toAdd);
 	}
 
-	CreateSrcDir(pathToRoot: string = "./"): void {
+	CreateSrcDir(pathToRoot: string): void {
 		this.fs.CreateDirectory(pathToRoot + "src");
 	}
 
-	CreateTestDir(pathToRoot: string = "./") {
+	CreateTestDir(pathToRoot: string) {
 		this.fs.CreateDirectory(pathToRoot + "test");
 	}
 
-	AddJestConfigToPackageJson(pathToRoot: string = "./") {
+	AddJestConfigToPackageJson(pathToRoot: string) {
 		const packageJsonString = this.FindPackageJson(pathToRoot);
 		let packageJson = JSON.parse(packageJsonString);
 		packageJson["jest"] = JEST_CONFIG;
@@ -66,7 +66,7 @@ export class FileHandler {
 		this.fs.CreateFile(pathToRoot + "package.json", newPackageString);
 	}
 
-	UpdateBuildScripts(pathToRoot: string = "./") {
+	UpdateBuildScripts(pathToRoot: string) {
 		const packageJsonString = this.FindPackageJson(pathToRoot);
 		let packageJson = JSON.parse(packageJsonString);
 		if (packageJson["scripts"] === undefined) {
@@ -81,7 +81,7 @@ export class FileHandler {
 		this.fs.CreateFile(pathToRoot + "package.json", newPackageString);
 	}
 
-	UpdateTestScripts(pathToRoot: string = "./") {
+	UpdateTestScripts(pathToRoot: string) {
 		const packageJsonString = this.FindPackageJson(pathToRoot);
 		let packageJson = JSON.parse(packageJsonString);
 		if (packageJson["scripts"] === undefined) {
@@ -95,7 +95,7 @@ export class FileHandler {
 		this.fs.CreateFile(pathToRoot + "package.json", newPackageString);
 	}
 
-	UpdateGitIgnoreForJest(pathToRoot: string = "./") {
+	UpdateGitIgnoreForJest(pathToRoot: string) {
 		let content = "";
 		let toAdd = "junit.xml" + EOL + "coverage";
 
@@ -111,7 +111,7 @@ export class FileHandler {
 		this.fs.UpdateFile(pathToRoot + this.GitIgnore, toAdd);
 	}
 
-	GetMainString(pathToRoot: string = "./"): string {
+	GetMainString(pathToRoot: string): string {
 		try {
 			const packageJsonString = this.FindPackageJson(pathToRoot);
 
@@ -127,7 +127,7 @@ export class FileHandler {
 		}
 	}
 
-	UpdateMain(newMainString: string, pathToRoot: string = "./") {
+	UpdateMain(newMainString: string, pathToRoot: string) {
 		const packageJsonString = this.FindPackageJson(pathToRoot);
 		let packageJson = JSON.parse(packageJsonString);
 		

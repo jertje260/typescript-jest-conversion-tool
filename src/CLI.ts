@@ -14,28 +14,26 @@ export class CLI {
 	public async Start() {
 		const root = await this.prompt.GetRootOfRepo();
 
-		await this.commandHandler.GoToRoot(root);
-
-		const packageJsonString = this.fileHandler.FindPackageJson();
+		const packageJsonString = this.fileHandler.FindPackageJson(root);
 
 		var packageJson = this.parser.ParsePackageJson(packageJsonString);
 		// what to do if already has typescript installed
 
-		const currentTypescriptVersion = await this.commandHandler.GetLatestTypescriptVersion();
+		const currentTypescriptVersion = await this.commandHandler.GetLatestTypescriptVersion(root);
 
 		const typescriptVersion = await this.prompt.GetTypescriptVersion(currentTypescriptVersion);
 
 		console.log(`Installing typescript version ${typescriptVersion}, please wait`);
 
-		await this.commandHandler.InstallTypescriptVersion(typescriptVersion);
+		await this.commandHandler.InstallTypescriptVersion(typescriptVersion, root);
 
 		console.log(`Updating/Creating tsconfig.json & tsconfig.build.json files`);
 
-		this.fileHandler.CreateTsConfig();
+		this.fileHandler.CreateTsConfig(root);
 
 		console.log("creating 'src' directory if not existing.");
 
-		this.fileHandler.CreateSrcDir();
+		this.fileHandler.CreateSrcDir(root);
 
 		let finishedMoving = false;
 
@@ -43,35 +41,35 @@ export class CLI {
 			finishedMoving = await this.prompt.FinishedMovingAllSourceFiles();
 		}
 
-		await this.fileHandler.UpdateBuildScripts();
+		await this.fileHandler.UpdateBuildScripts(root);
 
 		if (packageJson.devDependencies["mocha"] !== undefined && await this.prompt.RequestUpdateToJest()) {
-			await this.commandHandler.InstallJest();
+			await this.commandHandler.InstallJest(root);
 
-			await this.fileHandler.AddJestConfigToPackageJson();
+			this.fileHandler.AddJestConfigToPackageJson(root);
 
-			await this.fileHandler.UpdateGitIgnoreForJest();
+			this.fileHandler.UpdateGitIgnoreForJest(root);
 
 			console.log("creating 'test' directory if not existing");
 
-			this.fileHandler.CreateTestDir();
+			this.fileHandler.CreateTestDir(root);
 
 			let finishedMovingTests = false;
 			while (!finishedMovingTests) {
 				finishedMovingTests = await this.prompt.FinishedMovingAllTestFiles();
 			}
 
-			await this.fileHandler.UpdateTestScripts();
+			this.fileHandler.UpdateTestScripts(root);
 		}
 
-		const mainString = await this.fileHandler.GetMainString();
+		const mainString = this.fileHandler.GetMainString(root);
 
 		const proposedMain = this.GetNewMain(mainString);
 
 		const newMainString = await this.prompt.CheckUpdatedMainMethod(mainString, proposedMain);
 
 		this.fileHandler.UpdateMain(newMainString);
-		// update main method
+
 		// update start script
 		// move tests over to jest (first implementation from mocha)
 		// update package.json to have jest configuration

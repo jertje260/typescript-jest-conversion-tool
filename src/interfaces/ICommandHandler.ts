@@ -1,6 +1,5 @@
 export interface ICommandHandler {
-	InstallJest(): Promise<void>;
-	GoToRoot(path: string): Promise<void>;
-	InstallTypescriptVersion(typescriptVersion: string): Promise<void>;
-	GetLatestTypescriptVersion(): Promise<string>
+	InstallJest(root: string): Promise<void>;
+	InstallTypescriptVersion(typescriptVersion: string, root: string): Promise<void>;
+	GetLatestTypescriptVersion(root: string): Promise<string>
 }
