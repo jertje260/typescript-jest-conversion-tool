@@ -57,12 +57,18 @@ export class CLI {
 			this.fileHandler.CreateTestDir();
 
 			let finishedMovingTests = false;
-			while(!finishedMovingTests){
+			while (!finishedMovingTests) {
 				finishedMovingTests = await this.prompt.FinishedMovingAllTestFiles();
 			}
 
 			await this.fileHandler.UpdateTestScripts();
 		}
+
+		const mainString = await this.fileHandler.GetMainString();
+
+		const proposedMain = this.GetNewMain(mainString);
+
+		const newMainString = await this.prompt.CheckUpdatedMainMethod(mainString, proposedMain);
 
 		// update main method
 		// update start script
@@ -76,5 +82,23 @@ export class CLI {
 		// create docker ignore file
 
 
+	}
+
+
+	public GetNewMain(mainString: string): string {
+		if (mainString === "") {
+			return "";
+		}
+		const firstPathForward = mainString.indexOf('/');
+		const firstPathBackward = mainString.indexOf('\\');
+		if (firstPathForward === -1 && firstPathBackward === -1) {
+			return "dist/" + mainString;
+		} else {
+			const indexToSplit = firstPathBackward === -1 ? firstPathForward : firstPathBackward;
+
+			const left = mainString.substring(indexToSplit);
+
+			return "dist" + left;
+		}
 	}
 }
