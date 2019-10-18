@@ -70,6 +70,7 @@ export class CLI {
 
 		const newMainString = await this.prompt.CheckUpdatedMainMethod(mainString, proposedMain);
 
+		this.fileHandler.UpdateMain(newMainString);
 		// update main method
 		// update start script
 		// move tests over to jest (first implementation from mocha)

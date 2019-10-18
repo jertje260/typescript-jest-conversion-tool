@@ -126,4 +126,16 @@ export class FileHandler {
 			return "";
 		}
 	}
+
+	UpdateMain(newMainString: string, pathToRoot: string = "./") {
+		const packageJsonString = this.FindPackageJson(pathToRoot);
+		let packageJson = JSON.parse(packageJsonString);
+		
+		packageJson["main"] = newMainString;
+
+		const newPackageString = JSON.stringify(packageJson);
+
+		this.fs.CreateFile(pathToRoot + "package.json", newPackageString);
+
+	}
 }

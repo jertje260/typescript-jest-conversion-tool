@@ -46,4 +46,30 @@ describe("When updating package.json", () => {
 				}
 			));
 	});
+
+	it("Given no main method in package.json, should create it.", () => {
+		memfs.SetVolume({ "/package.json": "{}" }, "/");
+
+		fileHandler.UpdateMain("dist/index.js", "/");
+
+		expect(memfs.GetVolume()["/package.json"]).toBe(
+			JSON.stringify(
+				{
+					"main": "dist/index.js"
+				}
+			));
+	});
+
+	it("Given main method in package.json, should update it.", () => {
+		memfs.SetVolume({ "/package.json": JSON.stringify({ "main": "random.js" }) }, "/");
+
+		fileHandler.UpdateMain("dist/index.js", "/");
+
+		expect(memfs.GetVolume()["/package.json"]).toBe(
+			JSON.stringify(
+				{
+					"main": "dist/index.js"
+				}
+			));
+	});
 });
