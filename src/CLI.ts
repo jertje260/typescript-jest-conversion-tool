@@ -68,13 +68,9 @@ export class CLI {
 
 		const newMainString = await this.prompt.CheckUpdatedMainMethod(mainString, proposedMain);
 
-		this.fileHandler.UpdateMain(newMainString);
+		this.fileHandler.UpdateMain(newMainString, root);
 
 		// update start script
-		// move tests over to jest (first implementation from mocha)
-		// update package.json to have jest configuration
-		// create/update clean/compile/build/test steps
-
 
 		// update azure-pipelines*.yaml's to do npm install, test, build (and prune for release)
 		// update docker file to just be base + mount of volume.
