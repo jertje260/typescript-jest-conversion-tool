@@ -24,6 +24,6 @@ export class CommandHandler implements ICommandHandler {
 			exec(command, function (error, standardOutput, standardError) {
 				resolve(standardOutput);
 			});
-		}
-
+		});
+	}
 }
