@@ -12,7 +12,9 @@
         "compile": "tsc -p tsconfig.build.json",
         "test": "jest",
         "local": "npm install -g && tjc",
-        "test-watch": "jest --collect-coverage=false --watchAll --reporters=\"default\""
+        "test-watch": "jest --collect-coverage=false --watch --reporters=\"default\"",
+        "test-watchall": "jest --collect-coverage=false --watchAll --reporters=\"default\""
+
     },
     "repository": {
         "type": "git",
