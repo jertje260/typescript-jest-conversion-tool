@@ -70,6 +70,11 @@ export class CLI {
 
 		this.fileHandler.UpdateMain(newMainString, root);
 
+		const currentStart = this.fileHandler.GetStartMethod(root);
+
+		const proposedStart = this.GetNewStart(mainString, currentStart);
+
+		const newStart = await this.prompt.CheckUpdatedStartMethod(currentStart, proposedStart);
 		// update start script
 
 		// update azure-pipelines*.yaml's to do npm install, test, build (and prune for release)
@@ -77,6 +82,12 @@ export class CLI {
 		// create docker ignore file
 
 
+	}
+	GetNewStart(mainString: string, currentStart: string) {
+		if(currentStart === "" && mainString === ""){
+			return "node dist/server.js";
+		}
+		return `node ${mainString}`
 	}
 
 

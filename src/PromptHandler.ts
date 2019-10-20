@@ -88,7 +88,7 @@ export class PromptHandler {
         return response.main;
     }
     
-    public async CheckUpdatedStartMethod(currentStart: void, proposedStart: void): Promise<string> {
+    public async CheckUpdatedStartMethod(currentStart: string, proposedStart: string): Promise<string> {
         const response = await prompt([{
             type: 'confirm',
             name: 'default',
@@ -102,7 +102,7 @@ export class PromptHandler {
         }]);
 
         if (response.default) {
-            return proposedMain;
+            return proposedStart;
         }
         return response.main;
 	}
