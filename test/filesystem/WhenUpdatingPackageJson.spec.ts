@@ -6,6 +6,7 @@ const memfs = new InMemoryFileSystemHandler();
 const fileHandler = new FileHandler(memfs);
 
 describe("When updating package.json", () => {
+
 	it("Given minimal package.json, should add jest configuration", () => {
 		memfs.SetVolume({ "/package.json": "{}" }, "/");
 
@@ -47,29 +48,63 @@ describe("When updating package.json", () => {
 			));
 	});
 
-	it("Given no main method in package.json, should create it.", () => {
-		memfs.SetVolume({ "/package.json": "{}" }, "/");
+	describe("main method:", () => {
+		it("Given no main method in package.json, should create it.", () => {
+			memfs.SetVolume({ "/package.json": "{}" }, "/");
 
-		fileHandler.UpdateMain("dist/index.js", "/");
+			fileHandler.UpdateMain("dist/index.js", "/");
 
-		expect(memfs.GetVolume()["/package.json"]).toBe(
-			JSON.stringify(
-				{
-					"main": "dist/index.js"
-				}
-			));
+			expect(memfs.GetVolume()["/package.json"]).toBe(
+				JSON.stringify(
+					{
+						"main": "dist/index.js"
+					}
+				));
+		});
+
+		it("Given main method in package.json, should update it.", () => {
+			memfs.SetVolume({ "/package.json": JSON.stringify({ "main": "random.js" }) }, "/");
+
+			fileHandler.UpdateMain("dist/index.js", "/");
+
+			expect(memfs.GetVolume()["/package.json"]).toBe(
+				JSON.stringify(
+					{
+						"main": "dist/index.js"
+					}
+				));
+		});
 	});
 
-	it("Given main method in package.json, should update it.", () => {
-		memfs.SetVolume({ "/package.json": JSON.stringify({ "main": "random.js" }) }, "/");
+	describe("start method:", () => {
+		it("Given no start method in package.json, should create it.", () => {
+			memfs.SetVolume({ "/package.json": "{}" }, "/");
 
-		fileHandler.UpdateMain("dist/index.js", "/");
+			fileHandler.UpdateStartMethod("node dist/index.js", "/");
 
-		expect(memfs.GetVolume()["/package.json"]).toBe(
-			JSON.stringify(
-				{
-					"main": "dist/index.js"
-				}
-			));
+			expect(memfs.GetVolume()["/package.json"]).toBe(
+				JSON.stringify(
+					{
+						"scripts": {
+							"start": "node dist/index.js"
+						}
+					}
+				));
+		});
+
+		it("Given main method in package.json, should update it.", () => {
+			memfs.SetVolume({ "/package.json": JSON.stringify({ "scripts": { "start": "random.js" } }) }, "/");
+
+			fileHandler.UpdateStartMethod("node dist/index.js", "/");
+
+			expect(memfs.GetVolume()["/package.json"]).toBe(
+				JSON.stringify(
+					{
+						"scripts": {
+							"start": "node dist/index.js"
+						}
+					}
+				));
+		});
 	});
 });

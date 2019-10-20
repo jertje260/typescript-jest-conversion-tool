@@ -127,6 +127,21 @@ export class FileHandler {
 		}
 	}
 
+	UpdateStartMethod(newStart: string, pathToRoot: string) {
+		const packageJsonString = this.FindPackageJson(pathToRoot);
+		let packageJson = JSON.parse(packageJsonString);
+
+		if(packageJson["scripts"] === undefined){
+			packageJson["scripts"] = {};
+		}
+
+		packageJson["scripts"]["start"] = newStart;
+
+		const newPackageString = JSON.stringify(packageJson);
+
+		this.fs.CreateFile(pathToRoot + "package.json", newPackageString);
+	}
+
 	UpdateMain(newMainString: string, pathToRoot: string) {
 		const packageJsonString = this.FindPackageJson(pathToRoot);
 		let packageJson = JSON.parse(packageJsonString);
