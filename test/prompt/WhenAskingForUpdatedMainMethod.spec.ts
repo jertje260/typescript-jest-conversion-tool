@@ -4,7 +4,7 @@ import {PromptHandler} from "../../src/PromptHandler";
 const promptHandler = new PromptHandler();
 
 describe("When asking for updated main method", () => {
-    it("Given in root dir, should return './'", async () => {
+    it("Given correct updated method, should return 'b'", async () => {
         inject([true]);
 
         const main = await promptHandler.CheckUpdatedMainMethod("a", "b");
@@ -12,10 +12,10 @@ describe("When asking for updated main method", () => {
         expect(main).toBe("b");
     });
 
-    it("Given not in root dir, should return given './app/'", async () => {
+    it("Given incorrect update method, should return 'dist/index.js", async () => {
         inject([false, "dist/index.js"]);
 
-        const main = await promptHandler.GetRootOfRepo();
+        const main = await promptHandler.CheckUpdatedMainMethod("a", "b");
 
         expect(main).toBe("dist/index.js");
     });
