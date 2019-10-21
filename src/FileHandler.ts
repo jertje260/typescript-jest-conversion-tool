@@ -1,6 +1,6 @@
 import { PackageJsonNotFoundError } from "./errors/PackageJsonNotFoundError";
 import { IFileSystemHandler } from "./interfaces/IFileSystemHandler";
-import { TSCONFIG_BUILD_JSON, TSCONFIG_JSON, JEST_CONFIG } from "./models/StringConstants"
+import { TSCONFIG_BUILD_JSON, TSCONFIG_JSON, JEST_CONFIG, DOCKERFILE, DOCKERIGNORE } from "./models/StringConstants"
 import { EOL } from "os";
 
 export class FileHandler {
@@ -131,7 +131,7 @@ export class FileHandler {
 		const packageJsonString = this.FindPackageJson(pathToRoot);
 		let packageJson = JSON.parse(packageJsonString);
 
-		if(packageJson["scripts"] === undefined){
+		if (packageJson["scripts"] === undefined) {
 			packageJson["scripts"] = {};
 		}
 
@@ -161,12 +161,31 @@ export class FileHandler {
 			if (packageJson["scripts"] === undefined) {
 				return "";
 			}
-			if(packageJson["scripts"]["start"] === undefined){
+			if (packageJson["scripts"]["start"] === undefined) {
 				return "";
 			}
 			return packageJson["scripts"]["start"];
 		} catch {
 			return "";
 		}
+	}
+
+	CreateDockerFiles(pathToRoot: string) {
+		let from = "node:10-alpine";
+		try {
+			const original = this.fs.ReadFile(pathToRoot + "Dockerfile", "utf8");
+			const regex = new RegExp(/FROM (.*)/gm);
+			const match = regex.exec(original);
+
+			console.log("match", match);
+
+			if (match !== null) {
+				from = match[1];
+			}
+		} catch{ }
+
+		const dockerFileContents = `FROM ${from}` + EOL + EOL + DOCKERFILE;
+		this.fs.CreateFile(pathToRoot + "Dockerfile", dockerFileContents);
+		this.fs.CreateFile(pathToRoot + ".dockerignore", DOCKERIGNORE);
 	}
 }

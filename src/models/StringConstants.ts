@@ -1,3 +1,5 @@
+import { EOL } from "os";
+
 export const TSCONFIG_JSON = 
 `{
     "extends": "./tsconfig.build.json",
@@ -43,19 +45,10 @@ export const JEST_CONFIG = {
 	]
 };
 
-export const DOCKERFILE = 
-`
-# keep the original FROM
-
-ADD . /app
-VOLUME ["/app"]
-
-ENTRYPOINT ["npm", "start"]
-`;
+export const DOCKERFILE = `ADD . /app${EOL}VOLUME ["/app"]${EOL.repeat(2)}ENTRYPOINT ["npm", "start"]`;
 
 export const DOCKERIGNORE = 
-`
-# Ignore everything
+`# Ignore everything
 **
 
 # Allow files and directories
@@ -68,5 +61,4 @@ export const DOCKERIGNORE =
 **/*~
 **/*.log
 **/.DS_Store
-**/Thumbs.db
-`;
+**/Thumbs.db`;
