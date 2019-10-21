@@ -72,7 +72,7 @@ export class CLI {
 
 		const currentStart = this.fileHandler.GetStartMethod(root);
 
-		const proposedStart = this.GetNewStart(mainString, currentStart);
+		const proposedStart = this.GetNewStart(newMainString, currentStart);
 
 		const newStart = await this.prompt.CheckUpdatedStartMethod(currentStart, proposedStart);
 
@@ -82,8 +82,10 @@ export class CLI {
 		// update docker file to just be base + mount of volume.
 		// create docker ignore file
 
+		// TODO update package json formatting
 
 	}
+	
 	GetNewStart(mainString: string, currentStart: string) {
 		if(currentStart === "" && mainString === ""){
 			return "node dist/server.js";

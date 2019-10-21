@@ -13,6 +13,7 @@ export class CommandHandler implements ICommandHandler {
 	}
 
 	public async GetLatestTypescriptVersion(root: string = "./"): Promise<string> {
+		// TODO remove the newline
 		return await this.GetOutputOfCommand("npm view typescript version", root);
 	}
 

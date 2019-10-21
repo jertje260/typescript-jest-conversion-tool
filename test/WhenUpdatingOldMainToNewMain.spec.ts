@@ -31,4 +31,10 @@ describe("When updating old to new main", () => {
 
         expect(response).toBe("dist/a/b/index.js");
     });
+
+    it("given a file with path starting with './', should change first folder with 'dist/'", () => {
+        const response = cli.GetNewMain("./index.js");
+
+        expect(response).toBe("dist/index.js");
+    });
 });
