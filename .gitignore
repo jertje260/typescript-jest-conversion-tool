@@ -2,3 +2,4 @@ node_modules
 dist
 junit.xml
 coverage
+tsconfig.build.tsbuildinfo
