@@ -1,13 +1,13 @@
-export const TSCONFIG_JSON = 
-`{
+export const TSCONFIG_JSON = JSON.stringify(
+{
     "extends": "./tsconfig.build.json",
     "include": [
         "./test/**/*"
     ]
-}`;
+});
 
-export const TSCONFIG_BUILD_JSON =
-`{
+export const TSCONFIG_BUILD_JSON = JSON.stringify(
+{
 	"compilerOptions": {
 		"incremental": true,
 		"target": "esnext", /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */
@@ -27,7 +27,7 @@ export const TSCONFIG_BUILD_JSON =
 	"include": [
 		"src/**/*"
 	]
-}`;
+});
 
 export const JEST_CONFIG = {
 	"collectCoverage": true,
@@ -42,3 +42,31 @@ export const JEST_CONFIG = {
 		"jest-junit"
 	]
 };
+
+export const DOCKERFILE = 
+`
+# keep the original FROM
+
+ADD . /app
+VOLUME ["/app"]
+
+ENTRYPOINT ["npm", "start"]
+`;
+
+export const DOCKERIGNORE = 
+`
+# Ignore everything
+**
+
+# Allow files and directories
+!/package.json
+!/dist/**
+!/node_modules/**
+
+# Ignore unnecessary files inside allowed directories
+# This should go after the allowed directories
+**/*~
+**/*.log
+**/.DS_Store
+**/Thumbs.db
+`;
