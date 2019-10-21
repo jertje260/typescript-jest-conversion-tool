@@ -12,7 +12,7 @@ describe("When asking for docker support", () => {
         expect(output).toBe(true);
     });
 
-    it("Given docker support not requested should return true", async () => {
+    it("Given docker support not requested should return false", async () => {
         inject([false]);
 
         const output = await promptHandler.CheckDockerUpdateRequired();

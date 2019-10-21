@@ -1,4 +1,5 @@
 import { prompt } from "prompts"
+import { EOL } from "os";
 
 export class PromptHandler {
     public async FinishedMovingAllTestFiles(): Promise<boolean> {
@@ -130,8 +131,17 @@ export class PromptHandler {
         return (await prompt([{
             type: 'confirm',
             name: 'docker',
-            message: 'Would you like to update the Docker file? It is based on the pipeline doing all the work, and just mounting it at the end.',
+            message: `Would you like to update the Docker file?${EOL}It is based on the pipeline doing all the work, and just mounting it at the end.${EOL}`,
             initial: true
         }])).docker;
-	}
+    }
+    
+    public async AzurePipelinesRequested():Promise<boolean> {
+        return (await prompt([{
+            type: 'confirm',
+            name: 'pipelines',
+            message: `Would you like to have updated azure pipeline yaml files?${EOL}They will do the build steps required to get the docker build & published${EOL}`,
+            initial: true
+        }])).pipelines;
+    }
 }

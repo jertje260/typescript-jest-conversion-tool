@@ -88,6 +88,9 @@ export class CLI {
 			this.fileHandler.CreateDockerFiles(root);
 		}
 
+		if(await this.prompt.AzurePipelinesRequested()){
+			
+		}
 		// update azure-pipelines*.yaml's to do npm install, test, build (and prune for release)
 
 	}
