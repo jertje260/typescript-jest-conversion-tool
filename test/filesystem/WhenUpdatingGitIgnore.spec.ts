@@ -24,7 +24,7 @@ describe("When updating .gitignore file", () => {
 
 		const volume = memfs.GetVolume();
 
-		expect(volume["/.gitignore"]).toEqual("dist" + EOL + "tsconfig.build.tsbuildinfo");
+		expect(volume["/.gitignore"]).toEqual("dist" + EOL + "*.tsbuildinfo");
 	});
 
 	it("Should add 'dist' to .gitignore if existing", () => {
@@ -35,7 +35,7 @@ describe("When updating .gitignore file", () => {
 
 		fileHandler.UpdateGitIgnoreForTypescript("/");
 
-		expect(memfs.GetVolume()["/.gitignore"]).toEqual("dist" + EOL + "tsconfig.build.tsbuildinfo");
+		expect(memfs.GetVolume()["/.gitignore"]).toEqual("dist" + EOL + "*.tsbuildinfo");
 	});
 
 	it("Should add 'dist' to .gitignore on newline if file contains data if existing", () => {
@@ -48,7 +48,7 @@ describe("When updating .gitignore file", () => {
 
 		const volume = memfs.GetVolume();
 
-		expect(volume["/.gitignore"]).toEqual("node_modules" + EOL + "dist" + EOL + "tsconfig.build.tsbuildinfo");
+		expect(volume["/.gitignore"]).toEqual("node_modules" + EOL + "dist" + EOL + "*.tsbuildinfo");
 	});
 
 	it("Should add 'junit & coverage' to .gitignore on newline if file contains data if existing", () => {
