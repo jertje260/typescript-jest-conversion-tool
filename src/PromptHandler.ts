@@ -125,4 +125,13 @@ export class PromptHandler {
         }
         return response.main;
     }
+
+    public async CheckDockerUpdateRequired(): Promise<boolean> {
+        return (await prompt([{
+            type: 'confirm',
+            name: 'docker',
+            message: 'Would you like to update the Docker file? It is based on the pipeline doing all the work, and just mounting it at the end.',
+            initial: true
+        }])).docker;
+	}
 }

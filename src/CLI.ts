@@ -84,11 +84,13 @@ export class CLI {
 
 		this.fileHandler.UpdateStartMethod(newStart, root);
 
+		if(await this.prompt.CheckDockerUpdateRequired()){
+			
+		}
+
 		// update azure-pipelines*.yaml's to do npm install, test, build (and prune for release)
 		// update docker file to just be base + mount of volume.
 		// create docker ignore file
-
-		// TODO update package json formatting
 
 	}
 
