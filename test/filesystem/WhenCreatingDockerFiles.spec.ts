@@ -14,14 +14,6 @@ describe("When creating docker files", () => {
 		expect(memfs.GetVolume()["/Dockerfile"]).not.toBeUndefined();
 	});
 
-	it("Given no Dockerignore, should create it", () => {
-		memfs.SetVolume({}, "/");
-
-		fileHandler.CreateDockerFiles("/");
-
-		expect(memfs.GetVolume()["/.dockerignore"]).not.toBeUndefined();
-	});
-
 	it("Given no dockerfile, should have contents", () => {
 		memfs.SetVolume({}, "/");
 
@@ -36,6 +28,22 @@ describe("When creating docker files", () => {
 		fileHandler.CreateDockerFiles("/");
 
 		expect(memfs.GetVolume()["/Dockerfile"]).toBe(dockerFileWithOtherBase);
+	});
+
+	it("Given no Dockerignore, should create it", () => {
+		memfs.SetVolume({}, "/");
+
+		fileHandler.CreateDockerFiles("/");
+
+		expect(memfs.GetVolume()["/.dockerignore"]).not.toBeUndefined();
+	});
+
+	it("Given no Dockerignore, should look as follows", () => {
+		memfs.SetVolume({}, "/");
+
+		fileHandler.CreateDockerFiles("/");
+
+		expect(memfs.GetVolume()["/.dockerignore"]).toBe(dockerIgnore);
 	});
 });
 

@@ -177,8 +177,6 @@ export class FileHandler {
 			const regex = new RegExp(/FROM (.*)/gm);
 			const match = regex.exec(original);
 
-			console.log("match", match);
-
 			if (match !== null) {
 				from = match[1];
 			}
