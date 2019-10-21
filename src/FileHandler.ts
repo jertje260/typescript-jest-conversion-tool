@@ -61,7 +61,7 @@ export class FileHandler {
 		let packageJson = JSON.parse(packageJsonString);
 		packageJson["jest"] = JEST_CONFIG;
 
-		const newPackageString = JSON.stringify(packageJson);
+		const newPackageString = JSON.stringify(packageJson, null, 4);
 
 		this.fs.CreateFile(pathToRoot + "package.json", newPackageString);
 	}
@@ -76,7 +76,7 @@ export class FileHandler {
 		packageJson["scripts"]["clean"] = "rm -rf ./dist";
 		packageJson["scripts"]["compile"] = "tsc -p tsconfig.build.json";
 
-		const newPackageString = JSON.stringify(packageJson);
+		const newPackageString = JSON.stringify(packageJson, null, 4);
 
 		this.fs.CreateFile(pathToRoot + "package.json", newPackageString);
 	}
@@ -90,7 +90,7 @@ export class FileHandler {
 		packageJson["scripts"]["test"] = "jest";
 		packageJson["scripts"]["test-watch"] = "jest --collect-coverage=false --watchAll --reporters=\"default\"";
 
-		const newPackageString = JSON.stringify(packageJson);
+		const newPackageString = JSON.stringify(packageJson, null, 4);
 
 		this.fs.CreateFile(pathToRoot + "package.json", newPackageString);
 	}
@@ -137,7 +137,7 @@ export class FileHandler {
 
 		packageJson["scripts"]["start"] = newStart;
 
-		const newPackageString = JSON.stringify(packageJson);
+		const newPackageString = JSON.stringify(packageJson, null, 4);
 
 		this.fs.CreateFile(pathToRoot + "package.json", newPackageString);
 	}
@@ -148,7 +148,7 @@ export class FileHandler {
 
 		packageJson["main"] = newMainString;
 
-		const newPackageString = JSON.stringify(packageJson);
+		const newPackageString = JSON.stringify(packageJson, null, 4);
 
 		this.fs.CreateFile(pathToRoot + "package.json", newPackageString);
 	}

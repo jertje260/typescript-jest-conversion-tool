@@ -1,13 +1,13 @@
-export const TSCONFIG_JSON = JSON.stringify(
-{
+export const TSCONFIG_JSON = 
+`{
     "extends": "./tsconfig.build.json",
     "include": [
         "./test/**/*"
     ]
-});
+}`;
 
-export const TSCONFIG_BUILD_JSON = JSON.stringify(
-{
+export const TSCONFIG_BUILD_JSON = 
+`{
 	"compilerOptions": {
 		"incremental": true,
 		"target": "esnext", /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */
@@ -27,7 +27,7 @@ export const TSCONFIG_BUILD_JSON = JSON.stringify(
 	"include": [
 		"src/**/*"
 	]
-});
+}`;
 
 export const JEST_CONFIG = {
 	"collectCoverage": true,

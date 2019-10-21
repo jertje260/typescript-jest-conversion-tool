@@ -12,10 +12,26 @@ describe("When asking for typescript version", () => {
         expect(version).toBe("3.6.4");
     });
 
-    it("Given not in root dir, should return given './app/'", async () => {
+    it("Given not using latests version, should return specific version", async () => {
         inject([false, "3.7.0"]);
 
         const version = await promptHandler.GetTypescriptVersion("3.6.4");
+
+        expect(version).toBe("3.7.0");
+    });
+
+    it("Given no latest version found, but it is good, should return ''", async () => {
+        inject([true]);
+
+        const version = await promptHandler.GetTypescriptVersion("");
+
+        expect(version).toBe("");
+    });
+
+    it("Given no latest version found, should return given '3.7.0'", async () => {
+        inject([false, "3.7.0"]);
+
+        const version = await promptHandler.GetTypescriptVersion("");
 
         expect(version).toBe("3.7.0");
     });

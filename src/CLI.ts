@@ -23,9 +23,15 @@ export class CLI {
 
 		const typescriptVersion = await this.prompt.GetTypescriptVersion(currentTypescriptVersion);
 
-		console.log(`Installing typescript version ${typescriptVersion}, please wait`);
+		if (typescriptVersion !== "") {
+			console.log(`Installing typescript version ${typescriptVersion}, please wait`);
 
-		await this.commandHandler.InstallTypescriptVersion(typescriptVersion, root);
+			await this.commandHandler.InstallTypescriptVersion(typescriptVersion, root);
+		} else {
+			console.log(`Installing typescript, please wait`);
+
+			await this.commandHandler.InstallTypescript(root);
+		}
 
 		console.log(`Updating/Creating tsconfig.json & tsconfig.build.json files`);
 
@@ -85,9 +91,9 @@ export class CLI {
 		// TODO update package json formatting
 
 	}
-	
+
 	GetNewStart(mainString: string, currentStart: string) {
-		if(currentStart === "" && mainString === ""){
+		if (currentStart === "" && mainString === "") {
 			return "node dist/server.js";
 		}
 		return `node ${mainString}`

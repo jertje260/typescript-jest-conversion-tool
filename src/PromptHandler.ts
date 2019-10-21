@@ -1,7 +1,7 @@
 import { prompt } from "prompts"
 
 export class PromptHandler {
-	public async FinishedMovingAllTestFiles(): Promise<boolean> {
+    public async FinishedMovingAllTestFiles(): Promise<boolean> {
         const response = await prompt([{
             type: 'confirm',
             name: 'moved',
@@ -9,8 +9,8 @@ export class PromptHandler {
             initial: true
         }]);
         return response.moved;
-	}
-	public async RequestUpdateToJest(): Promise<boolean> {
+    }
+    public async RequestUpdateToJest(): Promise<boolean> {
         const response = await prompt([{
             type: 'confirm',
             name: 'useJest',
@@ -19,7 +19,7 @@ export class PromptHandler {
         }]);
         return response.useJest;
     }
-    
+
     public async FinishedMovingAllSourceFiles(): Promise<boolean> {
         const response = await prompt([{
             type: 'confirm',
@@ -31,22 +31,41 @@ export class PromptHandler {
     }
 
     public async GetTypescriptVersion(defaultTypescriptVersion: string) {
-        const response = await prompt([{
-            type: 'confirm',
-            name: 'default',
-            message: `Current latest version of typescript is: ${defaultTypescriptVersion}, is this good to install`,
-            initial: true
-        },
-        {
-            type: (prev: boolean) => (!prev) ? 'text' : null,
-            name: 'version',
-            message: 'Please type the version of typescript you would like to use'
-        }]);
+        if (defaultTypescriptVersion !== "") {
+            const response = await prompt([{
+                type: 'confirm',
+                name: 'default',
+                message: `Current latest version of typescript is: ${defaultTypescriptVersion}, is this good to install`,
+                initial: true
+            },
+            {
+                type: (prev: boolean) => (!prev) ? 'text' : null,
+                name: 'version',
+                message: 'Please type the version of typescript you would like to use'
+            }]);
 
-        if (response.default) {
-            return defaultTypescriptVersion;
+            if (response.default) {
+                return defaultTypescriptVersion;
+            }
+            return response.version;
+        } else {
+            const response = await prompt([{
+                type: 'confirm',
+                name: 'default',
+                message: `Do you want to use the latest version of typescript?`,
+                initial: true
+            },
+            {
+                type: (prev: boolean) => (!prev) ? 'text' : null,
+                name: 'version',
+                message: 'Please type the version of typescript you would like to use'
+            }]);
+
+            if (response.default) {
+                return defaultTypescriptVersion;
+            }
+            return response.version;
         }
-        return response.version;
     }
 
     public async GetRootOfRepo(): Promise<string> {
@@ -70,7 +89,7 @@ export class PromptHandler {
     }
 
     public async CheckUpdatedMainMethod(mainString: string, proposedMain: string): Promise<string> {
-		const response = await prompt([{
+        const response = await prompt([{
             type: 'confirm',
             name: 'default',
             message: `The current main is '${mainString}', we propose to change it to '${proposedMain}'. Is this good?`,
@@ -87,7 +106,7 @@ export class PromptHandler {
         }
         return response.main;
     }
-    
+
     public async CheckUpdatedStartMethod(currentStart: string, proposedStart: string): Promise<string> {
         const response = await prompt([{
             type: 'confirm',
@@ -105,5 +124,5 @@ export class PromptHandler {
             return proposedStart;
         }
         return response.main;
-	}
+    }
 }

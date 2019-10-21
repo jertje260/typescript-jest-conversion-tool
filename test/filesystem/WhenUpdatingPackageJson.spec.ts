@@ -12,7 +12,7 @@ describe("When updating package.json", () => {
 
 		fileHandler.AddJestConfigToPackageJson("/");
 
-		expect(memfs.GetVolume()["/package.json"]).toBe(JSON.stringify({ "jest": JEST_CONFIG }));
+		expect(memfs.GetVolume()["/package.json"]).toBe(JSON.stringify({ "jest": JEST_CONFIG }, null, 4));
 	});
 
 	it("Given minimal package.json, should add typescript build scripts", () => {
@@ -28,7 +28,7 @@ describe("When updating package.json", () => {
 						"clean": "rm -rf ./dist",
 						"compile": "tsc -p tsconfig.build.json",
 					}
-				}
+				}, null, 4
 			));
 	});
 
@@ -44,7 +44,7 @@ describe("When updating package.json", () => {
 						"test": "jest",
 						"test-watch": "jest --collect-coverage=false --watchAll --reporters=\"default\""
 					}
-				}
+				}, null, 4
 			));
 	});
 
@@ -58,7 +58,7 @@ describe("When updating package.json", () => {
 				JSON.stringify(
 					{
 						"main": "dist/index.js"
-					}
+					}, null, 4
 				));
 		});
 
@@ -71,7 +71,7 @@ describe("When updating package.json", () => {
 				JSON.stringify(
 					{
 						"main": "dist/index.js"
-					}
+					}, null, 4
 				));
 		});
 	});
@@ -88,7 +88,7 @@ describe("When updating package.json", () => {
 						"scripts": {
 							"start": "node dist/index.js"
 						}
-					}
+					}, null, 4
 				));
 		});
 
@@ -103,7 +103,7 @@ describe("When updating package.json", () => {
 						"scripts": {
 							"start": "node dist/index.js"
 						}
-					}
+					}, null, 4
 				));
 		});
 	});
