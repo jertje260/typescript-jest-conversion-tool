@@ -34,7 +34,7 @@ export class FileHandler {
 
 	UpdateGitIgnoreForTypescript(pathToRoot: string): void {
 		let content = "";
-		let toAdd = "dist"
+		let toAdd = "dist" + EOL + "tsconfig.build.tsbuildinfo";
 
 		try {
 			content = this.fs.ReadFile(pathToRoot + this.GitIgnore, 'utf8');
