@@ -1,5 +1,6 @@
 import { exec } from "child_process";
 import { ICommandHandler } from "./interfaces/ICommandHandler";
+import { EOL } from "os";
 
 export class CommandHandler implements ICommandHandler {
 	public async InstallJest(root: string = "./"): Promise<void> {
@@ -13,8 +14,9 @@ export class CommandHandler implements ICommandHandler {
 	}
 
 	public async GetLatestTypescriptVersion(root: string = "./"): Promise<string> {
-		// TODO remove the newline
-		return await this.GetOutputOfCommand("npm view typescript version", root);
+		const response = await this.GetOutputOfCommand("npm view typescript version", root);
+
+		return response.replace(EOL, "");
 	}
 
 	private GetOutputOfCommand(command: string, root: string = "./"): Promise<string> {
