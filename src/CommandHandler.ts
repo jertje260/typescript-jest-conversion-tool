@@ -14,7 +14,7 @@ export class CommandHandler implements ICommandHandler {
 	}
 
 	public async GetLatestTypescriptVersion(root: string = "./"): Promise<string> {
-		const response = await this.GetOutputOfCommand("npm view typescript version", root);
+		const response = await this.GetOutputOfCommand("npm show typescript version", root);
 
 		return response.replace(EOL, "");
 	}
