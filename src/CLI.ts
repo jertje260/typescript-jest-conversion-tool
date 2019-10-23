@@ -89,7 +89,12 @@ export class CLI {
 		}
 
 		if(await this.prompt.AzurePipelinesRequested()){
-			
+			// check if PR pipeline exists (prompt)
+			// if so allow user to select one of the .yaml files
+			// load this, check which steps need/should be updated
+			// save this
+
+			// above for release pipeline
 		}
 		// update azure-pipelines*.yaml's to do npm install, test, build (and prune for release)
 
